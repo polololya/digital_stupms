@@ -30,7 +30,7 @@ void react(int init_brightness=INIT_BRIGHTNESS) {
     strip.show();
     reaction_brightness -= 5;
     delay(50);
-    sensor_state = digitalRead(SENSOR_PIN);
+    // sensor_state = digitalRead(SENSOR_PIN);
     // if (sensor_state == 1){
     //   break;
     // }
@@ -38,14 +38,10 @@ void react(int init_brightness=INIT_BRIGHTNESS) {
 }
 
 void loop(){
-
   strip.clear(); 
-  
-
   strip.setBrightness(INIT_BRIGHTNESS);
-//  strip.fill(strip.Color(255, 255, 255), 0, 30);    // включаем белый цвет на 3 светодиоде
   strip.show();
-
+  
   int loop_brightness = INIT_BRIGHTNESS;
   sensor_state = digitalRead(SENSOR_PIN);
   if (sensor_state == 0) {
@@ -54,31 +50,20 @@ void loop(){
     while (loop_brightness > 0){
       sensor_state = digitalRead(SENSOR_PIN);
       if (sensor_state == 1){
-        react();
+        break;//react();
       }
       strip.setBrightness(loop_brightness);
       strip.show();
-      loop_brightness = loop_brightness - 20;
+      loop_brightness = loop_brightness - 10;
       delay(50);
       }
+    if (sensor_state == 1){
+        react();
+      }
+    
+  }
+  else { 
+    react();
   }
 
-  if (sensor_state == 1){
-    int reaction_brightness = INIT_BRIGHTNESS;
-    strip.setBrightness(reaction_brightness);
-    strip.fill(strip.Color(141, 90, 151), 0, NUMPIXELS);   // включаем белый цвет на 3 светодиоде
-    strip.show();   // отправляем сигнал на ленту
-    
-    // delay(500);
-    while (reaction_brightness > 0){
-      strip.setBrightness(reaction_brightness);
-      strip.show();
-      reaction_brightness -= 5;
-      delay(50);
-      sensor_state = digitalRead(SENSOR_PIN);
-      // if (sensor_state == 1){
-      //   break;
-      // }
-    }
-  }
 }
