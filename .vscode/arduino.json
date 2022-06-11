@@ -1,6 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "port": "/dev/cu.usbserial-14130",
-    "programmer": "arduino:avrisp",
-    "sketch": "working_sketch.ino"
-}
